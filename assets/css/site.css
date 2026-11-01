@@ -135,8 +135,9 @@ body {
   flex-direction: column;
   overflow-x: hidden;
 }
-:root[data-spacing="wide"] body { line-height: 1.95; letter-spacing: 0.035em; word-spacing: 0.12em; }
-:root[data-spacing="wide"] p, :root[data-spacing="wide"] li { max-width: 60ch; }
+:root[data-spacing="wide"] main, :root[data-spacing="wide"] .foot { line-height: 1.95; letter-spacing: 0.02em; word-spacing: 0.08em; }
+:root[data-spacing="wide"] main p, :root[data-spacing="wide"] main li { max-width: 60ch; }
+:root[data-font="dyslexic"] .nav a, :root[data-font="lexend"] .nav a { padding: 0 10px; font-size: 0.8rem; }
 
 img { max-width: 100%; display: block; }
 a { color: var(--link); text-underline-offset: 3px; }
@@ -461,6 +462,16 @@ input[aria-invalid="true"], select[aria-invalid="true"] { border-color: var(--er
 input[type="range"] { width: 100%; accent-color: var(--magenta); min-height: 32px; }
 .tts-controls { display: flex; flex-wrap: wrap; gap: 8px; }
 .reading { background: var(--hl); border-radius: 6px; box-shadow: 0 0 0 6px var(--hl); }
+.a11y .seg label { min-height: 44px; }
+.a11y .seg legend { font-weight: 600; width: 100%; }
+.tts-bar {
+  position: fixed; z-index: 55; left: 50%; transform: translateX(-50%);
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center;
+  max-width: calc(100% - 32px); padding: 10px 12px 10px 18px; border-radius: 999px;
+  background: var(--surface); border: 1.5px solid var(--line-strong); box-shadow: 0 12px 40px rgba(0, 0, 0, .35);
+  font-size: 0.9rem; font-weight: 500;
+}
 
 /* ---------- Responsive ---------- */
 @media (max-width: 860px) {
@@ -471,3 +482,5 @@ input[type="range"] { width: 100%; accent-color: var(--magenta); min-height: 32p
   .post, .episode { grid-template-columns: minmax(0, 1fr); gap: 10px; }
 }
 @media print { .top, .foot, .nightlight, #a11y-root { display: none; } }
+/* headings that receive focus on navigation don't need a ring */
+[tabindex="-1"]:focus, [tabindex="-1"]:focus-visible { outline: none; }

@@ -24,6 +24,7 @@
   if (s.spacing) d.dataset.spacing = "wide";
   if (s.contrast) d.dataset.contrast = "high";
   if (s.calm) d.dataset.calm = "on";
+  if (s.night) d.style.setProperty("--nl", String(s.nightLevel || 0.28));
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
