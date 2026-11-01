@@ -6,7 +6,7 @@
   var SOON = "Committee will insert content shortly.";
 
   var VIEWS = [
-    { id: "home", label: "Home", title: "Birmingham AI Society" },
+    { id: "home", label: "Home", title: "Birmingham AI Society", mobileOnly: true },
     { id: "about", label: "About", title: "About us" },
     { id: "next", label: "Next session", title: "Next session" },
     { id: "sessions", label: "Sessions", title: "Our sessions" },
@@ -205,7 +205,7 @@
   /* ---------- router ---------- */
   var current = null, enteredAt = 0;
   var navList = $("#nav-list");
-  navList.innerHTML = VIEWS.filter(function (v) { return v.id !== "home"; }).map(function (v) {
+  navList.innerHTML = VIEWS.map(function (v) {
     return '<li' + (v.mobileOnly ? ' class="mobile-only"' : "") + '><a href="#' + v.id + '" data-nav="' + v.id + '">' + v.label + "</a></li>";
   }).join("");
 
