@@ -1,0 +1,61 @@
+/* Committee stats dashboard. Chart colours validated for CVD and contrast
+   against each theme's surface (dataviz validator). */
+:root { --c1: #5b8cff; --c2: #e2479a; --grid: rgba(255, 223, 181, 0.1); }
+:root[data-theme="light"] { --c1: #2747d6; --c2: #c2187f; --grid: rgba(20, 26, 51, 0.08); }
+:root[data-contrast="high"] { --c1: var(--link); --c2: var(--warm); --grid: var(--line); }
+
+.gate { max-width: 460px; display: grid; gap: 16px; }
+.dash { display: grid; gap: 24px; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-m); padding: 18px 20px; display: grid; gap: 4px; align-content: start; }
+.kpi .v { font-family: var(--f-display); font-weight: 700; font-size: clamp(1.7rem, 3.4vw, 2.4rem); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi .l { color: var(--fg-2); font-size: 0.86rem; }
+.kpi .s { color: var(--fg-2); font-size: 0.8rem; }
+
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-m); padding: clamp(18px, 2.6vw, 26px); display: grid; gap: 14px; align-content: start; min-width: 0; }
+.card h2 { font-size: 1.02rem; font-weight: 600; }
+.card .sub { color: var(--fg-2); font-size: 0.86rem; margin-top: -8px; }
+.chart { width: 100%; overflow-x: auto; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { fill: var(--fg-2); font: 400 11px var(--f-body); }
+.chart .val { fill: var(--fg); font-weight: 600; }
+.chart .gl { stroke: var(--grid); stroke-width: 1; }
+.chart .base { stroke: var(--line-strong); stroke-width: 1; }
+.chart .hit { fill: transparent; cursor: default; }
+.chart .hit:focus { outline: none; }
+.chart .hit:focus-visible + .mark, .chart .hit:hover + .mark { opacity: .8; }
+
+.hbars { display: grid; gap: 10px; }
+.hbar { display: grid; grid-template-columns: minmax(90px, 140px) minmax(0, 1fr) auto; gap: 12px; align-items: center; font-size: 0.88rem; }
+.hbar .track { height: 12px; }
+.hbar .fill { height: 100%; background: var(--c1); border-radius: 0 4px 4px 0; min-width: 2px; }
+.hbar .n { font-variant-numeric: tabular-nums; color: var(--fg); font-weight: 500; text-align: right; }
+.hbar .n span { color: var(--fg-2); font-weight: 400; }
+
+.tbl { overflow-x: auto; }
+.tbl table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 560px; }
+.tbl th, .tbl td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tbl th { color: var(--fg-2); font-weight: 600; font-size: 0.8rem; }
+.tbl td.num, .tbl th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.quotes { display: grid; gap: 12px; }
+.quote { border-left: 3px solid var(--c2); padding: 4px 0 4px 14px; display: grid; gap: 4px; font-size: 0.9rem; }
+.quote .m { color: var(--fg-2); font-size: 0.8rem; }
+
+.att-form { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, .7fr); gap: 12px; align-items: end; }
+.att-form .full { grid-column: 1 / -1; }
+
+.tip {
+  position: fixed; z-index: 70; pointer-events: none; padding: 8px 12px; border-radius: 10px;
+  background: var(--fg); color: var(--bg); font-size: 0.82rem; font-weight: 500; line-height: 1.35;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .3); max-width: 240px;
+}
+.legend-note { color: var(--fg-2); font-size: 0.8rem; }
+
+@media (max-width: 860px) {
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid2 { grid-template-columns: minmax(0, 1fr); }
+  .att-form { grid-template-columns: minmax(0, 1fr); }
+  .hbar { grid-template-columns: minmax(80px, 110px) minmax(0, 1fr) auto; }
+}

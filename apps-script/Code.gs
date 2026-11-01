@@ -228,7 +228,11 @@ function dateOnly(v) {
 }
 function titleCase(s) {
   s = String(s || "").trim().replace(/\s+/g, " ");
-  return s ? s.toLowerCase().replace(/\b\w/g, function (c) { return c.toUpperCase(); }) : "";
+  if (!s) return "";
+  var small = { and: 1, of: 1, the: 1, in: 1, with: 1, for: 1, to: 1, on: 1, "&": 1 };
+  return s.toLowerCase().split(" ").map(function (w, i) {
+    return i > 0 && small[w] ? w : w.charAt(0).toUpperCase() + w.slice(1);
+  }).join(" ");
 }
 
 /* ------------------------------------------------------------------ */
