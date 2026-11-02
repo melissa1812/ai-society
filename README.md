@@ -80,7 +80,7 @@ To remove someone from the mailing list, delete their row in `signups`.
 
 ## Fonts
 
-The site uses Poppins for text. Titles use Bicubik and the tagline uses Larken, falling back to Syncopate and Fraunces until we have the font files. Once the `.woff2` files are added to `assets/fonts/`, the site will use them. OpenDyslexic is included for the accessibility panel under the SIL Open Font License (`assets/fonts/OpenDyslexic-OFL.txt`).
+The site uses Poppins for text. Titles use Bicubik and the tagline uses Larken, falling back to Unbounded and Fraunces until we have the font files. Once the `.woff2` files are added to `assets/fonts/`, the site will use them. Unbounded and OpenDyslexic are included under the SIL Open Font License (see `assets/fonts/`).
 
 ## Files
 
