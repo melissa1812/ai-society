@@ -78,18 +78,30 @@ window.SITE = {
 
   /* ---------------- AInnovate ---------------- */
   ainnovate: {
-    tagline: "Build AI that is purposeful, ethical and meaningful.",
-    brief: "",          /* the challenge, in a paragraph or two (\n for a new paragraph) */
-    prize: "",          /* e.g. "£500 and a mentoring session" */
-    prizeNote: "",      /* one line under the prize */
-    eligibility: "",
-    timeline: [],       /* in order: { step: "Registration opens", when: "3 November" } */
-    rules: [],          /* "One team of up to four people", ... */
-    criteria: [],       /* "Ethical impact", "Feasibility", ... */
-    howToEnter: "",
-    enterUrl: "",       /* link to the entry form */
+    /* Text from the AInnovate carousel. Each part below is one slide. */
+    tagline: "A cross-disciplinary innovation challenge",
+    pitch: "Bring a challenge from your industry. Let's rethink what's possible.",
+    notAsking: ["Love AI", "Implement it carelessly and call it innovation"],
+    asking: [
+      "Bring a problem worth solving",
+      "Really understand what innovation is, and how it can be done right",
+      "Use AI as one tool, but only with responsible, ethical, proper practices"
+    ],
+    brief: "Present to us a solution that uses Artificial Intelligence to fix a pre-existing problem within your industry or discipline.",
+    teamSize: "1–6",
+    teamNote: "Don't have a team? No worries. Come to our session and find like-minded people.",
+    teamNote2: "Want a team from different disciplines? We'd love that!",
+    technical: ["Prototype", "Presentation of your fully formed solution and the problem, by video or in person in front of a panel"],
+    nonTechnical: ["Presentation of your fully formed solution and the problem, by video or in person in front of a panel"],
+    criteria: ["Challenge approach", "Innovation", "Implementation", "Research", "Feasibility", "Ethical considerations", "Integrity"],
+    session: { label: "Dedicated AInnovate session", date: "Tuesday 3rd November", room: "Strathcona Building LT2", time: "Join us anytime from 3–5pm!" },
+    enterUrl: "",       /* link to the entry form, once there is one */
 
-    sponsorPitch: "AInnovate puts your organisation in front of students who build with AI and think hard about its impact. Sponsors are credited on every AInnovate session, our posters and this website, and are invited to judge the final.",
+    /* Courses shown faintly behind the "Who can join?" slide */
+    disciplines: ["Ancient History", "Archaeology", "History", "Creative Writing", "Drama", "Theology and Religion", "Liberal Arts", "Modern Languages", "French", "German", "Spanish", "Politics", "International Relations", "Law", "Criminology", "Sociology", "Social Policy", "Anthropology", "Economics", "Business Management", "Accounting and Finance", "Mathematics", "Computer Science", "Artificial Intelligence", "Data Science", "Aerospace Engineering", "Chemical Engineering", "Civil Engineering", "Mechanical Engineering", "Electrical Engineering", "Biomedical Science", "Biological Sciences", "Biotechnology", "Geography", "Environmental Science", "Geology", "Earth Sciences", "Urban Planning", "Medicine", "Dentistry", "Nursing", "Physiotherapy", "Sport and Exercise Sciences", "Psychology", "Health Sciences", "Pharmacy", "Food Safety", "Human Sciences", "Philosophy", "English Literature", "Physics", "Chemistry"],
+
+    /* Sponsors */
+    sponsorPitch: "AInnovate puts your organisation in front of students from every discipline who are solving real problems with responsible AI. Sponsors are credited on every AInnovate session, our posters and this website, and are invited to sit on the judging panel.",
     tiers: [
       { name: "Award sponsor", gets: "Name on the award, a seat on the judging panel, and a slot to speak at the final." },
       { name: "Session partner", gets: "Co-host one workshop, with your logo on the session posters and blog write-up." },

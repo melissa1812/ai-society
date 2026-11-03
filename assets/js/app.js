@@ -95,29 +95,110 @@
 
   R.ainnovate = function () {
     var A = S.ainnovate || {};
-    function list(arr, cls, fn) { return arr && arr.length ? "<" + (cls === "timeline" ? "ol" : "ul") + ' class="' + cls + '">' + arr.map(fn).join("") + "</" + (cls === "timeline" ? "ol" : "ul") + ">" : '<p class="muted">' + SOON + "</p>"; }
-    var enter = safeUrl(A.enterUrl) ? '<a class="btn" href="' + esc(safeUrl(A.enterUrl)) + '" target="_blank" rel="noopener">Enter AInnovate</a>' : '<a class="btn" href="#join">Join to take part</a>';
+    var X = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7"/></svg>';
+    var TICK = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" class="tick-bg"/><path d="M7 12.5l3.2 3.2L17 9"/></svg>';
+    var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
+    var PERSON = '<svg viewBox="0 0 40 44" aria-hidden="true"><circle cx="20" cy="10" r="9"/><path d="M2 44c0-11 8-19 18-19s18 8 18 19z"/></svg>';
+    function pills(arr, cls, icon) { return (arr || []).map(function (t, i) { return '<li class="ai-row">' + (icon ? '<span class="ai-ic">' + icon + "</span>" : "") + '<span class="ai-pill ' + cls + (i % 2 && cls !== "ai-pill-no" ? " alt" : "") + '">' + esc(t) + "</span></li>"; }).join(""); }
+    function brief(t) {
+      t = esc(t);
+      return t.replace(/Artificial Intelligence/, '<span class="gold-t">Artificial Intelligence</span>').replace(/(industry or discipline\.?)$/, '<span class="gold-t">$1</span>');
+    }
+    var ses = A.session || {};
+    var detail = function (kind, text) { return text ? '<li class="ai-detail">' + ICON[kind] + "<span>" + esc(text) + "</span></li>" : ""; };
+    var enter = safeUrl(A.enterUrl) ? '<a class="ai-btn ai-btn-solid" href="' + esc(safeUrl(A.enterUrl)) + '" target="_blank" rel="noopener">Enter AInnovate</a>' : "";
+
+    var slides = [
+      ["UOB AI Society · AInnovate", "Your industry has a problem",
+        '<div class="sl sl-center"><p class="ai-h1">Your industry<br>has a problem.</p><p class="ai-small">What if</p><p class="ai-you">you</p><p class="ai-h2">could help solve it?</p></div>'],
+      ["What is AInnovate?", "What is AInnovate?",
+        '<div class="sl"><p class="ai-word" aria-label="AInnovate"><span class="gold-t">AI</span>NNOVATE</p><p class="ai-tagpill">' + esc(A.tagline) + '</p>' +
+        '<p class="ai-h2">This isn\'t about making more AI.</p><p class="ai-h2">It\'s about solving <em class="gold-i">real problems.</em></p><p class="ai-body">' + esc(A.pitch) + "</p></div>"],
+      ["Who can join?", "Who can join?",
+        '<div class="ai-cloud" aria-hidden="true">' + (A.disciplines || []).concat(A.disciplines || []).map(esc).join(" · ") + "</div>" +
+        '<div class="sl"><p class="ai-h1">You don\'t have to be a tech person to change the future with innovation.</p><p class="ai-body">No matter your course, background or expertise, you can be an innovator.</p><p class="ai-h2 gold-i">We need your perspective.</p></div>'],
+      ["What we're looking for", "What we're looking for",
+        '<div class="sl"><p class="ai-h3">We\'re not asking you to…</p><ul class="ai-list">' + pills(A.notAsking, "ai-pill-no", X) + '</ul>' +
+        '<p class="ai-h3">We\'re asking you to…</p><ul class="ai-list">' + pills(A.asking, "", TICK) + '</ul><p class="ai-h2 gold-i">You bring the expertise.</p></div>'],
+      ["The challenge", "The challenge brief",
+        '<div class="sl sl-mid"><p class="ai-h1 ai-xl">The challenge<br>brief</p><p class="ai-lead">' + brief(A.brief || "") + '</p>' +
+        '<ol class="ai-flow"><li class="ai-pill">A real problem</li><li class="ai-arrow" aria-hidden="true">' + ARROW + '</li><li class="ai-pill alt">Responsible AI</li><li class="ai-arrow" aria-hidden="true">' + ARROW + '</li><li class="ai-pill pink">Your solution</li></ol></div>'],
+      ["How to enter", "How to enter",
+        '<div class="sl sl-mid"><p class="ai-h1 ai-xl">Teams of ' + esc(A.teamSize) + '</p><div class="ai-people" aria-hidden="true">' + [0, 1, 2, 3, 4, 5].map(function (i) { return '<span class="p' + i + '">' + PERSON + "</span>"; }).join("") + "</div>" +
+        '<div class="ai-datecard">' + ICON.date + "<span><b>" + esc(ses.date) + "</b>" + esc(ses.label) + "</span></div>" +
+        '<p class="ai-body">' + esc(A.teamNote) + '</p><p class="ai-body cream-t">' + esc(A.teamNote2) + "</p></div>"],
+      ["What to submit", "What every entry needs",
+        '<div class="sl"><p class="ai-h1">What every entry needs</p><p class="ai-h3">Technical entries</p><ul class="ai-list">' + pills(A.technical, "", ARROW) + '</ul>' +
+        '<p class="ai-h3">Non-technical entries</p><ul class="ai-list">' + pills(A.nonTechnical, "alt-first", ARROW) + "</ul></div>"],
+      ["How we judge", "Criteria",
+        '<div class="sl sl-mid"><p class="ai-h1 ai-xl">Criteria</p><p class="ai-body">What we\'ll look for in every entry.</p><ul class="ai-grid">' +
+        (A.criteria || []).map(function (c, i) { return '<li class="ai-pill' + ([1, 2, 5, 6].indexOf(i) >= 0 ? " alt" : "") + '">' + esc(c) + "</li>"; }).join("") + "</ul></div>"],
+      ["With great power comes great responsibility", "Every discipline. One challenge.",
+        '<div class="sl sl-center"><p class="ai-h1">Every discipline.<br>Every perspective.</p><p class="ai-h1 gold-i">One challenge.</p><p class="ai-kicker">' + esc(ses.label) + '</p>' +
+        '<ul class="ai-details">' + detail("date", ses.date) + detail("room", ses.room) + detail("time", ses.time) + '</ul>' +
+        '<div class="ai-ctas">' + enter + '<a class="ai-btn' + (enter ? "" : " ai-btn-solid") + '" href="#join">Join the society</a></div></div>']
+    ];
+    var n = slides.length;
+    var NEXT = ["What is AInnovate?", "Who can join?", "What we're looking for", "The challenge", "How to enter", "What to submit", "How we judge", "Join us"];
+
+    var deck = '<div class="deck" data-deck tabindex="-1" aria-roledescription="carousel" aria-label="AInnovate">' +
+      '<div class="deck-bars" role="group" aria-label="Choose a slide">' + slides.map(function (sl, i) { return '<button type="button" class="deck-bar" data-go="' + i + '" aria-label="Slide ' + (i + 1) + ": " + esc(sl[1]) + '"></button>'; }).join("") + "</div>" +
+      '<div class="deck-meta"><span class="deck-label" data-label></span><span class="deck-count" data-count></span></div>' +
+      '<div class="deck-stage">' + slides.map(function (sl, i) {
+        return '<section class="slide' + (i === 2 ? " has-cloud" : "") + '" data-slide="' + i + '" data-label="' + esc(sl[0]) + '" data-title="' + esc(sl[1]) + '" data-next="' + esc(NEXT[i] || "") + '" aria-roledescription="slide" aria-label="' + (i + 1) + " of " + n + ": " + esc(sl[1]) + '"' + (i ? " hidden" : "") + ">" + sl[2] + "</section>";
+      }).join("") + "</div>" +
+      '<div class="deck-foot"><img src="assets/img/logo-mark.jpg" alt="" width="64" height="64" class="deck-logo">' +
+        '<div class="deck-nav"><button type="button" class="ai-btn ai-btn-ghost ai-btn-icon" data-prev aria-label="Previous slide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button><button type="button" class="ai-btn" data-nextbtn></button></div></div>' +
+      '<p class="sr" aria-live="polite" data-live></p>' +
+    "</div>";
+
     var sponsors = (A.sponsors || []).length
       ? '<div class="sponsor-logos">' + A.sponsors.map(function (s) { var img = s.logo ? '<img src="' + esc(safeUrl(s.logo)) + '" alt="' + esc(s.name) + '">' : esc(s.name); return safeUrl(s.url) ? '<a href="' + esc(safeUrl(s.url)) + '" target="_blank" rel="noopener">' + img + "</a>" : img; }).join("") + "</div>"
       : "";
     var contact = A.sponsorEmail || S.sponsorEmail;
-    return '<div class="wrap stack-l">' + vh("ainnovate", "AInnovate", A.tagline) +
-      '<div class="award"><div class="stack"><p class="tag">The AInnovate award</p><h2 class="award-title">Build it well, build it responsibly</h2>' +
-        '<div class="prose">' + (A.brief ? paras(A.brief) : "<p>" + SOON + "</p>") + '</div><div class="row-btns">' + enter + "</div></div>" +
-        '<div class="award-prize"><span class="muted">Prize</span><span class="big">' + esc(A.prize || "To be announced") + "</span>" + (A.prizeNote ? '<span class="muted">' + esc(A.prizeNote) + "</span>" : "") + "</div></div>" +
-      '<div class="ai-cols">' +
-        '<div class="stack"><h2 class="h2">Timeline</h2>' + list(A.timeline, "timeline", function (t) { return "<li><div><b>" + esc(t.step) + "</b><span>" + esc(t.when) + "</span></div></li>"; }) + "</div>" +
-        '<div class="stack"><h2 class="h2">Rules</h2>' + (A.eligibility ? "<p>" + esc(A.eligibility) + "</p>" : "") + list(A.rules, "rules", function (r) { return "<li>" + esc(r) + "</li>"; }) +
-          '<h2 class="h2" style="margin-top:18px">What the judges look for</h2>' + list(A.criteria, "rules", function (r) { return "<li>" + esc(r) + "</li>"; }) +
-          (A.howToEnter ? '<h2 class="h2" style="margin-top:18px">How to enter</h2><div class="prose">' + paras(A.howToEnter) + "</div>" : "") + "</div>" +
-      "</div>" +
-      '<div class="panel stack"><h2 class="h2">Sponsor AInnovate</h2><p class="prose">' + esc(A.sponsorPitch) + "</p>" +
-        (A.tiers && A.tiers.length ? '<div class="tiers">' + A.tiers.map(function (t) { return '<div class="tier"><h3 class="h3">' + esc(t.name) + '</h3><p class="muted">' + esc(t.gets) + "</p></div>"; }).join("") + "</div>" : "") +
-        (sponsors ? '<h3 class="h3">With thanks to</h3>' + sponsors : "") +
-        (contact ? '<div class="copy-row"><span>Get in touch:</span><code id="sponsor-email">' + esc(contact) + '</code><button class="btn btn-plain btn-small" type="button" data-copy="sponsor-email">Copy email</button></div>' : '<p class="muted">Sponsor contact: ' + SOON + "</p>") +
-      "</div>" +
-    "</div>";
+    var sponsor = '<section class="ai-sponsor" aria-labelledby="ai-sp-h"><p class="ai-kicker">Partner with us</p><h2 class="ai-h1" id="ai-sp-h">Sponsor <span class="gold-i">AInnovate</span></h2>' +
+      '<p class="ai-body">' + esc(A.sponsorPitch) + "</p>" +
+      (A.tiers && A.tiers.length ? '<ul class="ai-tiers">' + A.tiers.map(function (t, i) { return '<li class="ai-tier' + (i === 0 ? " lead" : "") + '"><h3>' + esc(t.name) + "</h3><p>" + esc(t.gets) + "</p></li>"; }).join("") + "</ul>" : "") +
+      (sponsors ? '<p class="ai-h3">With thanks to</p>' + sponsors : "") +
+      (contact ? '<div class="copy-row"><span>Get in touch:</span><code id="sponsor-email">' + esc(contact) + '</code><button class="ai-btn" type="button" data-copy="sponsor-email">Copy email</button></div>' : '<p class="ai-body">Sponsor contact: ' + SOON + "</p>") +
+    "</section>";
+
+    return '<div class="ainv"><div class="wrap"><h1 class="sr" id="h-ainnovate" tabindex="-1">AInnovate</h1>' + deck + sponsor + "</div></div>";
   };
+
+  /* Slide deck behaviour (AInnovate) */
+  function bindDeck(root) {
+    var slides = $$(".slide", root), bars = $$(".deck-bar", root), n = slides.length, cur = 0;
+    var next = $("[data-nextbtn]", root), prev = $("[data-prev]", root), live = $("[data-live]", root);
+    var pad = function (i) { return (i < 10 ? "0" : "") + i; };
+    function go(i, announce) {
+      cur = Math.max(0, Math.min(n - 1, i));
+      slides.forEach(function (s, k) { s.hidden = k !== cur; });
+      bars.forEach(function (b, k) { b.classList.toggle("done", k < cur); b.classList.toggle("on", k === cur); if (k === cur) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
+      $("[data-label]", root).textContent = slides[cur].dataset.label;
+      $("[data-count]", root).textContent = pad(cur + 1) + " / " + pad(n);
+      prev.hidden = cur === 0;
+      if (cur < n - 1) { next.textContent = "Next: " + slides[cur].dataset.next + " →"; next.setAttribute("aria-label", "Next slide: " + slides[cur].dataset.next); }
+      else { next.textContent = "Start again"; next.setAttribute("aria-label", "Back to the first slide"); }
+      if (announce) live.textContent = "Slide " + (cur + 1) + " of " + n + ": " + slides[cur].dataset.title;
+    }
+    next.addEventListener("click", function () { go(cur < n - 1 ? cur + 1 : 0, true); });
+    prev.addEventListener("click", function () { go(cur - 1, true); });
+    bars.forEach(function (b, k) { b.addEventListener("click", function () { go(k, true); }); });
+    root.addEventListener("keydown", function (e) {
+      if (/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+      if (e.key === "ArrowRight") { e.preventDefault(); go(cur + 1, true); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); go(cur - 1, true); }
+    });
+    var x0 = null, y0 = null;
+    $(".deck-stage", root).addEventListener("pointerdown", function (e) { x0 = e.clientX; y0 = e.clientY; });
+    $(".deck-stage", root).addEventListener("pointerup", function (e) {
+      if (x0 === null) return;
+      var dx = e.clientX - x0, dy = e.clientY - y0; x0 = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) go(cur + (dx < 0 ? 1 : -1), true);
+    });
+    go(0, false);
+  }
 
   var blogCat = "All";
   R.blog = function () {
@@ -230,6 +311,7 @@
 
   /* ---------- per-view behaviour ---------- */
   function bind(id, el) {
+    if (id === "ainnovate") { var d = $("[data-deck]", el); if (d) bindDeck(d); }
     if (id === "blog") $$("[data-cat]", el).forEach(function (b) { b.addEventListener("click", function () { blogCat = b.dataset.cat; render("blog"); var f = $('[data-cat="' + CSS.escape(blogCat) + '"]', el); if (f) f.focus(); }); });
     if (id === "sessions") $$(".fb-toggle", el).forEach(function (btn) {
       btn.addEventListener("click", function () {
