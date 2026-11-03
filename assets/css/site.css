@@ -491,3 +491,16 @@ input[type="range"] { width: 100%; accent-color: var(--magenta); min-height: 32p
 @media print { .top, .foot, .nightlight, #a11y-root { display: none; } }
 /* headings that receive focus on navigation don't need a ring */
 [tabindex="-1"]:focus, [tabindex="-1"]:focus-visible { outline: none; }
+
+/* Landing page: hero fills the first screen, nothing cut off at the bottom */
+.view[data-view="home"] { padding-block: 0; }
+.home { min-height: calc(100svh - 69px - env(safe-area-inset-top, 0px)); display: grid; align-items: center; padding-block: clamp(24px, 4vh, 48px); }
+.home .logo-ring { width: min(100%, 440px, 62svh); }
+@media (max-width: 860px) { .home .logo-ring { width: min(64%, 280px, 34svh); } }
+
+/* Next session panel at the top of Sessions */
+.next-up { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 48px); align-items: start; }
+.next-up .chips { flex-direction: column; align-items: flex-start; }
+.next-title { font-size: clamp(1.4rem, 3.4vw, 2.2rem); }
+@media (max-width: 860px) { .next-up { grid-template-columns: minmax(0, 1fr); } }
+.past-h { font-size: 0.95rem; font-weight: 600; color: var(--fg-2); padding-bottom: 14px; margin-bottom: clamp(22px, 3vw, 32px); border-bottom: 1px solid var(--line); }

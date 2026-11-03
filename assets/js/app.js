@@ -8,7 +8,6 @@
   var VIEWS = [
     { id: "home", label: "Home", title: "Birmingham AI Society", mobileOnly: true },
     { id: "about", label: "About", title: "About us" },
-    { id: "next", label: "Next session", title: "Next session" },
     { id: "sessions", label: "Sessions", title: "Our sessions" },
     { id: "ainnovate", label: "AInnovate", title: "AInnovate" },
     { id: "blog", label: "Blog", title: "Blog" },
@@ -52,26 +51,13 @@
   var R = {};
 
   R.home = function () {
-    var n = S.next;
-    var nextCard = n
-      ? '<div class="ring next-card"><p class="tag">Up next</p><h2 class="h2">' + esc(n.title) + "</h2>" + chips(n) + '<p class="muted">' + esc(n.brief) + '</p><div class="row-btns"><a class="btn btn-small" href="#next">Session details</a></div></div>'
-      : '<div class="ring next-card"><p class="tag">Up next</p><h2 class="h2">Next session</h2><p class="muted">' + SOON + '</p><div class="row-btns"><a class="btn btn-small" href="#join">Join to hear first</a></div></div>';
-    var links = [
-      ["ainnovate", "AInnovate", "Our award for purposeful, ethical AI solutions"],
-      ["sessions", "Sessions", "Briefs, material and anonymous feedback"],
-      ["podcast", "Podcast", "Conversations with our guest speakers"],
-      ["blog", "Blog", "Weekly AI news and society updates"]
-    ].map(function (l) {
-      return '<a href="#' + l[0] + '"><span class="hl-t">' + l[1] + '</span><span class="hl-dot" aria-hidden="true"></span><span class="hl-d">' + l[2] + "</span></a>";
-    }).join("");
-    return '<div class="wrap">' +
+    return '<div class="wrap home">' +
       '<div class="hero"><div>' +
         '<h1 class="vh-title hero-title" id="h-home" tabindex="-1"><span class="grad">AI</span> Society</h1>' +
         '<p class="tagline">With great power comes great responsibility</p>' +
         '<p class="hero-sub">' + esc(S.about && S.about.intro) + "</p>" +
-        '<div class="row-btns"><a class="btn" href="#join">Join the society</a><a class="btn btn-ghost" href="#about">Who we are</a></div>' +
+        '<div class="row-btns"><a class="btn" href="#join">Join the society</a><a class="btn btn-ghost" href="#sessions">See our sessions</a></div>' +
       '</div><div class="logo-ring"><img src="assets/img/logo.jpg" width="640" height="640" alt="University of Birmingham AI Society logo: a brain split into a pink organic half and a blue circuit half, with a light bulb between them"></div></div>' +
-      '<div class="home-grid">' + nextCard + '<nav class="home-links" aria-label="Explore">' + links + "</nav></div>" +
     "</div>";
   };
 
@@ -82,14 +68,6 @@
       '<div class="about-cols">' + col("Who we are", a.who) + col("Our vision", a.vision) + col("Our aspirations", a.aspirations) + "</div>" +
       '<div class="story"><h2 class="serif">How and why we started</h2><div class="prose muted">' + (a.story ? paras(a.story) : "<p>" + SOON + "</p>") + "</div></div>" +
     "</div>";
-  };
-
-  R.next = function () {
-    var n = S.next;
-    var body = n
-      ? '<div class="ring stack"><h2 class="h2" style="font-size:clamp(1.4rem,3.4vw,2.2rem)">' + esc(n.title) + "</h2>" + chips(n) + '<div class="prose">' + paras(n.brief) + '</div><div class="row-btns"><a class="btn" href="#join">Join the society</a></div></div>'
-      : empty("Next session to be announced");
-    return '<div class="wrap">' + vh("next", "Next session", "Date, time, room and what we will cover.") + body + "</div>";
   };
 
   R.sessions = function () {
@@ -105,7 +83,14 @@
           '<div class="fb-wrap"><button class="btn btn-ghost btn-small fb-toggle" type="button" aria-expanded="false" aria-controls="fb-' + esc(s.id) + '">Give anonymous feedback</button><div class="fb" id="fb-' + esc(s.id) + '" hidden></div></div>' +
         "</div></article>";
     }).join("");
-    return '<div class="wrap">' + vh("sessions", "Our sessions", "A short brief of each session, the material we share, and an anonymous way to tell us what you thought.") + (list || empty("No sessions yet")) + "</div>";
+    var n = S.next;
+    var next = n
+      ? '<div class="ring next-up"><div class="stack"><p class="tag">Next session</p><h2 class="h2 next-title">' + esc(n.title) + '</h2><div class="prose">' + paras(n.brief) + '</div></div>' +
+        '<div class="stack">' + chips(n) + '<div class="row-btns"><a class="btn btn-small" href="#join">Join the society</a></div></div></div>'
+      : '<div class="ring next-up"><div class="stack"><p class="tag">Next session</p><h2 class="h2 next-title">To be announced</h2><p class="muted">' + SOON + '</p></div>' +
+        '<div class="stack"><div class="row-btns"><a class="btn btn-small" href="#join">Join to hear first</a></div></div></div>';
+    return '<div class="wrap stack-l">' + vh("sessions", "Our sessions", "What is coming up next, plus a brief of every past session, the material we share, and an anonymous way to tell us what you thought.") +
+      next + '<div class="past"><h2 class="past-h">Past sessions</h2>' + (list ? "<div>" + list + "</div>" : empty("No sessions yet")) + "</div></div>";
   };
 
   R.ainnovate = function () {
@@ -240,7 +225,7 @@
     esc: esc
   };
 
-  function fromHash() { return (location.hash || "#home").slice(1).split(/[?/]/)[0] || "home"; }
+  function fromHash() { var h = (location.hash || "#home").slice(1).split(/[?/]/)[0] || "home"; return h === "next" ? "sessions" : h; }
   window.addEventListener("hashchange", function () { show(fromHash(), true); });
 
   /* ---------- per-view behaviour ---------- */
