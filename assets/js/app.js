@@ -85,7 +85,8 @@
     }).join("");
     var n = S.next;
     var next = n
-      ? '<div class="ring next-up"><div class="stack"><p class="tag">Next session</p><h2 class="h2 next-title">' + esc(n.title) + '</h2><div class="prose">' + paras(n.brief) + '</div></div>' +
+      ? '<div class="ring next-up"><div class="stack"><p class="tag">Next session</p><h2 class="h2 next-title">' + esc(n.title) + '</h2>' + (n.partners ? '<p class="next-partners">' + esc(n.partners) + "</p>" : "") + '<div class="prose">' + paras(n.brief) + "</div>" +
+        (n.points && n.points.length ? '<ul class="points">' + n.points.map(function (p) { return "<li>" + esc(p) + "</li>"; }).join("") + "</ul>" : "") + "</div>" +
         '<div class="stack">' + chips(n) + '<div class="row-btns"><a class="btn btn-small" href="#join">Join the society</a></div></div></div>'
       : '<div class="ring next-up"><div class="stack"><p class="tag">Next session</p><h2 class="h2 next-title">To be announced</h2><p class="muted">' + SOON + '</p></div>' +
         '<div class="stack"><div class="row-btns"><a class="btn btn-small" href="#join">Join to hear first</a></div></div></div>';

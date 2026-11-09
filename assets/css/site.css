@@ -674,3 +674,4 @@ input[type="range"] { width: 100%; accent-color: var(--magenta); min-height: 32p
   .deck-nav .ai-btn { min-height: 46px; padding: 0 18px; font-size: 0.88rem; }
   .deck-nav .ai-btn-icon { width: 46px; padding: 0; }
 }
+.next-partners { color: var(--warm); font-weight: 600; margin-top: -4px; }

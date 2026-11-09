@@ -27,16 +27,66 @@ window.SITE = {
   },
 
   /* ---------------- Next session ----------------
-     Replace null with:
+     Set to null when nothing is announced. "points" and "partners" are optional.
      { title: "", date: "Tuesday 3 November", time: "16:00 – 18:00",
-       room: "Murray LC-UG05", brief: "" }                              */
-  next: null,
+       room: "Murray LC-UG05", brief: "", points: [], partners: "" }       */
+  next: {
+    title: "Hackathon Workshop",
+    date: "Monday 9 November",
+    time: "16:00 – 18:00",
+    room: "Murray LG12",
+    partners: "A live session with Women in Tech Society and WISE",
+    brief: "Got an idea for the upcoming hackathon but don't know where to start? We've got you covered!\nGet familiar with the tools, techniques and approaches that can take your hackathon idea from concept to reality.",
+    points: [
+      "Problem solving & scalability, with Women in Tech Society",
+      "Design & development tools, with the AI Society",
+      "Building smarter & safer, with WISE"
+    ]
+  },
 
   /* ---------------- Our sessions ----------------
-     Newest first. "parts" become the "Did you enjoy...?" questions in the
-     anonymous feedback form. "materials" are links to slides, notebooks etc.
+     Past sessions, newest first. When the next session has run, copy it here.
+     "parts" become the "Did you enjoy...?" questions in the anonymous
+     feedback form. "materials" are links to slides, notebooks etc.
      e.g. materials: [{ label: "Slides (PDF)", url: "https://..." }]       */
   sessions: [
+    {
+      id: "ainnovate-session",
+      title: "AInnovate Session",
+      date: "Tuesday 3 November",
+      time: "15:00 – 17:00",
+      room: "Strathcona Building LT2",
+      brief: "Our dedicated AInnovate session: a cross-disciplinary innovation challenge to solve a real problem from your industry or discipline, using AI responsibly. We walked through the challenge brief, what every entry needs and how we judge, and helped people find teammates from different disciplines.",
+      points: [
+        "The challenge brief and what we're looking for",
+        "What technical and non-technical entries need to submit",
+        "Finding a team of 1–6, from any discipline"
+      ],
+      parts: [
+        "the walkthrough of the challenge brief",
+        "meeting potential teammates"
+      ],
+      materials: []
+    },
+    {
+      id: "ai-on-trial",
+      title: "AI on Trial",
+      date: "Tuesday 27 October",
+      time: "16:00 – 18:00",
+      room: "MMAT-GC13",
+      brief: "What happens when AI goes on trial? We put AI under the spotlight, debating its impact on creativity, fairness and education, exploring different perspectives, challenging assumptions and deciding whether AI is innocent or guilty.",
+      points: [
+        "AI's impact on human creativity, originality and artistic ownership",
+        "Bias and discrimination in AI systems, and whether AI can truly make impartial decisions",
+        "Whether AI supports learning or makes us more reliant, reducing independent thinking"
+      ],
+      parts: [
+        "the debate on AI and creativity",
+        "the debate on bias and fairness",
+        "the debate on AI in education"
+      ],
+      materials: []
+    },
     {
       id: "ethics-innovation",
       title: "Ethics & Innovation Workshop",
@@ -53,6 +103,42 @@ window.SITE = {
         "the discussion on AI's ethical, social and environmental impact",
         "the AInnovate briefing",
         "the discussion on responsible AI at work"
+      ],
+      materials: []
+    },
+    {
+      id: "prompt-engineering",
+      title: "Prompt Engineering & AI-Assisted Development",
+      date: "Tuesday 13 October",
+      time: "15:00 – 17:00",
+      room: "Bioscience E-102",
+      brief: "Our first hands-on workshop, on getting the most out of AI. We looked at how LLMs are used in industry, with a focus on how to use them efficiently, ethically and responsibly.",
+      points: [
+        "Basic prompt structures",
+        "Practical examples",
+        "An accessible learning format"
+      ],
+      parts: [
+        "learning the basic prompt structures",
+        "the practical examples"
+      ],
+      materials: []
+    },
+    {
+      id: "launch-event",
+      title: "Launch Event",
+      date: "Friday 9 October",
+      time: "12:00 – 14:00",
+      room: "Watson LT A (G23)",
+      brief: "Be curious, be involved, be informed. Our launch event introduced the society and gave a taste of what our sessions look like: learning about AI hands-on, with the ethics built in from day one.",
+      points: [
+        "All disciplines welcome",
+        "No experience required",
+        "Snacks and refreshments"
+      ],
+      parts: [
+        "finding out about the society",
+        "the hands-on AI taster"
       ],
       materials: []
     }
