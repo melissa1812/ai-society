@@ -35,12 +35,12 @@ window.SITE = {
     date: "Monday 9 November",
     time: "16:00 – 18:00",
     room: "Murray LG12",
-    partners: "A live session with Women in Tech Society and WISE",
+    partners: "A live session run together with Women in Tech Society and WISE",
     brief: "Got an idea for the upcoming hackathon but don't know where to start? We've got you covered!\nGet familiar with the tools, techniques and approaches that can take your hackathon idea from concept to reality.",
     points: [
-      "Problem solving & scalability, with Women in Tech Society",
-      "Design & development tools, with the AI Society",
-      "Building smarter & safer, with WISE"
+      "Problem solving & scalability",
+      "Design & development tools",
+      "Building smarter & safer"
     ]
   },
 
